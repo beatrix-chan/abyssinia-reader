@@ -52,7 +52,10 @@ The name **Abyssinia Reader** is a direct nod to the Abyssinian cat, emphasizing
 ## Getting Started
 
 1. Fork my repository
-2. Git clone `git clone `
+2. Git clone
+   ```bash
+   git clone https://github.com/<your-username>/abyssinia-reader.git
+   ```
 3. `cd abyssinia-reader`
 4. 
     ```bash
