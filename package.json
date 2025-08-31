@@ -19,7 +19,7 @@
     "electron"
   ],
   "author": "Beatrix Chan",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "type": "commonjs",
   "devDependencies": {
     "concurrently": "^9.2.0",
