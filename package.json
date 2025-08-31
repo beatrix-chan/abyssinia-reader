@@ -26,6 +26,10 @@
     "electron": "^37.3.1",
     "wait-on": "^8.0.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beatrix-chan/abyssinia-reader.git"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
     "fabric": "^6.7.1",
