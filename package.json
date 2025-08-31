@@ -1,0 +1,41 @@
+{
+  "name": "abyssinia-reader",
+  "version": "1.0.0",
+  "description": "An open source and feature rich PDF reader and editor built with ElectronJS",
+  "main": "src/main/main.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pdf",
+    "reader",
+    "editor",
+    "annotation",
+    "electron"
+  ],
+  "author": "Beatrix Chan",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "electron": "^37.3.1",
+    "wait-on": "^8.0.4"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "fabric": "^6.7.1",
+    "file-type": "^21.0.0",
+    "html-docx-js": "^0.3.1",
+    "jspdf": "^3.0.1",
+    "konva": "^9.3.22",
+    "mammoth": "^1.10.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.11.174",
+    "sharp": "^0.34.3"
+  }
+}
