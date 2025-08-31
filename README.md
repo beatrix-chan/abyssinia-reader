@@ -1,5 +1,8 @@
 # ![icon](/src/assets/app-icons/icon-48.svg) Abyssinia Reader
 
+> [!IMPORTANT]
+> Abyssinia Reader's major files are uploaded to GitHub on **31<sup>st</sup> August 2025**. Code are not properly documented yet, guides are rough drafts only. The pre-release version of the Abyssinia Reader is aimed to be published before the end of September, and officially publish the first release before November. For more inquiries, please contact me via email (beatrix.chan.dev@proton.me).
+
 ![Electron](https://img.shields.io/badge/Electron-272a37?style=for-the-badge&logo=electron) ![Version](https://img.shields.io/badge/Version-1.0.0-aquamarine?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjAgMjAiPjxwYXRoIGZpbGw9IiNmYWZhZmEiIGQ9Ik0xMC4zNjggMGEuNjguNjggMCAwIDEgLjQ4NC4yMDFsOC4zNSA4LjM5Yy41NTguNTg2LjgzNiAxLjI0OS43OTQgMS45NThjLS4wNC42NjQtLjMwNCAxLjI3NC0uODA3IDEuODQ2bC03LjA3NCA3LjAzN2wtLjExNS4wOTJjLS42MzguNDA2LTEuMjYuNTY0LTEuODUuNDI4Yy0uNTE1LS4xMTgtMS4wNTQtLjQzNi0xLjY3Ny0uOTc4bC04LjE2LTguMjE5YS42OC42OCAwIDAgMS0uMTk5LS40N0wwIDEuNDcyQy4wMDcgMS4wNDQuMTI2LjY4MS4zOTIuNDEzQy42NjYuMTM4IDEuMDU1LjAyMyAxLjU4OCAwek02LjQ3MyA0LjU3NGExLjU5IDEuNTkgMCAxIDAgMCAzLjE4Yy44NzkgMCAxLjU5My0uNzExIDEuNTkzLTEuNTljMC0uODc4LS43MTMtMS41OS0xLjU5My0xLjU5Ii8+PC9zdmc+&logoColor=a0ebf9) [![License](https://img.shields.io/badge/License-GPL--3.0_license-e08d3c?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMTYgMTYiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y1YTk3ZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNNC41IDEzLjVoN004LjAxIDF2MTIuMDZNMS41IDMuNWgzbDEuNS0xaDRsMS41IDFoM00uNSAxMEwzIDQuNDhMNS41IDEwQzQgMTEgMiAxMSAuNSAxMG0xMCAwTDEzIDQuNDhMMTUuNSAxMGMtMS41IDEtMy41IDEtNSAwIi8+PC9zdmc+)](LICENSE)
 <details>
 
@@ -75,11 +78,12 @@ The name **Abyssinia Reader** is a direct nod to the Abyssinian cat, emphasizing
 - [VSCodium](https://vscodium.com) as IDE
     - [Cursor](https://cursor.com/en) light debug
     - [Cline (anthropic/claude-sonnet-4)](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev) heavy debug
+- [Prettier](https://prettier.io/) as coding style
 
 ### Packages
 
 > [!NOTE]
-> You may also check [`package.json`](/package.json)
+> You may also check [`package.json`](package.json)
 
 - [`@fontawesome/fontawesome-free@7.0.0`](https://www.npmjs.com/package/@fortawesome/fontawesome-free/v/7.0.0)
 - [`concurrently@9.2.0`](https://www.npmjs.com/package/concurrently/v/9.2.0)
