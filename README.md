@@ -1,5 +1,7 @@
 # ![icon](/src/assets/app-icons/icon-48.svg) Abyssinia Reader
 
+> *Last Updated*: 5<sup>th</sup> September, 2025
+
 > [!IMPORTANT]
 > Abyssinia Reader's major files are uploaded to GitHub on **31<sup>st</sup> August 2025**. Code are not properly documented yet, guides are rough drafts only. The pre-release version of the Abyssinia Reader is aimed to be published before the end of September, and officially publish the first release before November. For more inquiries, please contact me via email (beatrix.chan.dev@proton.me). ***Please don't open any issues, pull requests, or fork the repository at this state.***
 
@@ -55,11 +57,15 @@ The name **Abyssinia Reader** is a direct nod to the Abyssinian cat, emphasizing
 ## Getting Started
 
 1. Fork my repository
-2. Git clone
+2. Git clone to your local machine
    ```bash
    git clone https://github.com/<your-username>/abyssinia-reader.git
    ```
-3. `cd abyssinia-reader`
+3. 
+    ```bash
+    # cd into project directory
+    cd abyssinia-reader
+    ```
 4. 
     ```bash
     # Install dependencies
