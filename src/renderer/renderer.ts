@@ -1,5 +1,5 @@
-const { ipcRenderer } = require("electron");
-const fs = require("fs");
+import { ipcRenderer } from "electron";
+import * as fs from "fs"
 
 class PDFReader {
   constructor() {
