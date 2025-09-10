@@ -1,471 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abyssinia Reader</title>
-    <link
-      rel="stylesheet"
-      href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="app">
-      <!-- Header/Toolbar -->
-      <div class="toolbar">
-        <div class="toolbar-section">
-          <button class="btn btn-primary" id="open-pdf">
-            <i class="fas fa-folder-open"></i> Open PDF
-          </button>
-          <button class="btn" id="create-pdf-from-images">
-            <i class="fas fa-images"></i> Create PDF
-          </button>
-        </div>
 
-        <div class="toolbar-section">
-          <div class="tool-group">
-            <button
-              class="btn tool-btn"
-              id="highlighter-tool"
-              title="Highlighter (Ctrl+H)"
-            >
-              <i class="fas fa-highlighter"></i>
-            </button>
-            <button
-              class="btn tool-btn"
-              id="comment-tool"
-              title="Comment (Ctrl+M)"
-            >
-              <i class="fas fa-comment"></i>
-            </button>
-            <button
-              class="btn tool-btn"
-              id="signature-tool"
-              title="Signature (Ctrl+S)"
-            >
-              <i class="fas fa-signature"></i>
-            </button>
-            <button class="btn tool-btn" id="stamp-tool" title="Stamp (Ctrl+T)">
-              <i class="fas fa-stamp"></i>
-            </button>
-            <button class="btn tool-btn" id="crop-tool" title="Crop Page">
-              <i class="fas fa-crop"></i>
-            </button>
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abyssinia Reader</title>
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <div class="toolbar-section">
-          <div class="page-controls">
-            <button class="btn" id="prev-page" title="Previous Page">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <span class="page-info">
-              <input type="number" id="current-page" min="1" value="1" />
-              <span>of <span id="total-pages">0</span></span>
-            </span>
-            <button class="btn" id="next-page" title="Next Page">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
+<body>
+  <div id="app">
+    <!-- Header/Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-section">
+        <button class="btn btn-primary" id="open-pdf">
+          <i class="fas fa-folder-open"></i> Open PDF
+        </button>
+        <button class="btn" id="create-pdf-from-images">
+          <i class="fas fa-images"></i> Create PDF
+        </button>
+      </div>
 
-        <div class="toolbar-section">
-          <div class="zoom-controls">
-            <button class="btn" id="zoom-out" title="Zoom Out">
-              <i class="fas fa-minus"></i>
-            </button>
-            <select id="zoom-select">
-              <option value="0.5">50%</option>
-              <option value="0.75">75%</option>
-              <option value="1" selected>100%</option>
-              <option value="1.25">125%</option>
-              <option value="1.5">150%</option>
-              <option value="2">200%</option>
-              <option value="fit-width">Fit Width</option>
-              <option value="fit-page">Fit Page</option>
-            </select>
-            <button class="btn" id="zoom-in" title="Zoom In">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="toolbar-section">
-          <button class="btn" id="rotate-left" title="Rotate Left">
-            <i class="fas fa-undo"></i>
+      <div class="toolbar-section">
+        <div class="tool-group">
+          <button class="btn tool-btn" id="highlighter-tool" title="Highlighter (Ctrl+H)">
+            <i class="fas fa-highlighter"></i>
           </button>
-          <button class="btn" id="rotate-right" title="Rotate Right">
-            <i class="fas fa-redo"></i>
+          <button class="btn tool-btn" id="comment-tool" title="Comment (Ctrl+M)">
+            <i class="fas fa-comment"></i>
           </button>
-          <div class="dropdown">
-            <button
-              class="btn dropdown-btn"
-              id="pages-dropdown"
-              title="Page Tools"
-            >
-              <i class="fas fa-file-alt"></i> Pages
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="dropdown-content" id="pages-dropdown-content">
-              <button class="dropdown-item" id="reorganize-pages">
-                <i class="fas fa-sort"></i> Reorganize Pages
-              </button>
-              <button class="dropdown-item" id="export-images">
-                <i class="fas fa-images"></i> Export as Images
-              </button>
-              <button class="dropdown-item" id="extract-text">
-                <i class="fas fa-file-alt"></i> Extract Text
-              </button>
-            </div>
-          </div>
-          <button class="btn" id="print-pdf" title="Print">
-            <i class="fas fa-print"></i>
+          <button class="btn tool-btn" id="signature-tool" title="Signature (Ctrl+S)">
+            <i class="fas fa-signature"></i>
           </button>
-          <button class="btn" id="share-pdf" title="Share">
-            <i class="fas fa-share-alt"></i>
+          <button class="btn tool-btn" id="stamp-tool" title="Stamp (Ctrl+T)">
+            <i class="fas fa-stamp"></i>
+          </button>
+          <button class="btn tool-btn" id="crop-tool" title="Crop Page">
+            <i class="fas fa-crop"></i>
           </button>
         </div>
       </div>
 
-      <!-- Tool Options Panel -->
-      <div class="tool-options" id="tool-options" style="display: none">
-        <!-- Highlighter Options -->
-        <div class="tool-panel" id="highlighter-options">
-          <div class="highlighter-row">
-            <div class="color-section">
-              <label>Color:</label>
-              <div class="color-picker">
-                <button
-                  class="color-btn active"
-                  data-color="#ffff00"
-                  style="background-color: #ffff00"
-                ></button>
-                <button
-                  class="color-btn"
-                  data-color="#ff8c00"
-                  style="background-color: #ff8c00"
-                ></button>
-                <button
-                  class="color-btn"
-                  data-color="#ff1493"
-                  style="background-color: #ff1493"
-                ></button>
-                <button
-                  class="color-btn"
-                  data-color="#00ff00"
-                  style="background-color: #00ff00"
-                ></button>
-                <button
-                  class="color-btn"
-                  data-color="#00bfff"
-                  style="background-color: #00bfff"
-                ></button>
-                <input
-                  type="color"
-                  id="custom-color"
-                  value="#ffff00"
-                  style="
+      <div class="toolbar-section">
+        <div class="page-controls">
+          <button class="btn" id="prev-page" title="Previous Page">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <span class="page-info">
+            <input type="number" id="current-page" min="1" value="1" />
+            <span>of <span id="total-pages">0</span></span>
+          </span>
+          <button class="btn" id="next-page" title="Next Page">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar-section">
+        <div class="zoom-controls">
+          <button class="btn" id="zoom-out" title="Zoom Out">
+            <i class="fas fa-minus"></i>
+          </button>
+          <select id="zoom-select">
+            <option value="0.5">50%</option>
+            <option value="0.75">75%</option>
+            <option value="1" selected>100%</option>
+            <option value="1.25">125%</option>
+            <option value="1.5">150%</option>
+            <option value="2">200%</option>
+            <option value="fit-width">Fit Width</option>
+            <option value="fit-page">Fit Page</option>
+          </select>
+          <button class="btn" id="zoom-in" title="Zoom In">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar-section">
+        <button class="btn" id="rotate-left" title="Rotate Left">
+          <i class="fas fa-undo"></i>
+        </button>
+        <button class="btn" id="rotate-right" title="Rotate Right">
+          <i class="fas fa-redo"></i>
+        </button>
+        <div class="dropdown">
+          <button class="btn dropdown-btn" id="pages-dropdown" title="Page Tools">
+            <i class="fas fa-file-alt"></i> Pages
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content" id="pages-dropdown-content">
+            <button class="dropdown-item" id="reorganize-pages">
+              <i class="fas fa-sort"></i> Reorganize Pages
+            </button>
+            <button class="dropdown-item" id="export-images">
+              <i class="fas fa-images"></i> Export as Images
+            </button>
+            <button class="dropdown-item" id="extract-text">
+              <i class="fas fa-file-alt"></i> Extract Text
+            </button>
+          </div>
+        </div>
+        <button class="btn" id="print-pdf" title="Print">
+          <i class="fas fa-print"></i>
+        </button>
+        <button class="btn" id="share-pdf" title="Share">
+          <i class="fas fa-share-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tool Options Panel -->
+    <div class="tool-options" id="tool-options" style="display: none">
+      <!-- Highlighter Options -->
+      <div class="tool-panel" id="highlighter-options">
+        <div class="highlighter-row">
+          <div class="color-section">
+            <label>Color:</label>
+            <div class="color-picker">
+              <button class="color-btn active" data-color="#ffff00" style="background-color: #ffff00"></button>
+              <button class="color-btn" data-color="#ff8c00" style="background-color: #ff8c00"></button>
+              <button class="color-btn" data-color="#ff1493" style="background-color: #ff1493"></button>
+              <button class="color-btn" data-color="#00ff00" style="background-color: #00ff00"></button>
+              <button class="color-btn" data-color="#00bfff" style="background-color: #00bfff"></button>
+              <input type="color" id="custom-color" value="#ffff00" style="
                     width: 30px;
                     height: 30px;
                     border: 2px solid #ddd;
                     border-radius: 50%;
                     cursor: pointer;
-                  "
-                />
-              </div>
-            </div>
-            <div class="thickness-section">
-              <label>Thickness:</label>
-              <div class="thickness-controls">
-                <input
-                  type="range"
-                  id="highlighter-thickness"
-                  min="10"
-                  max="30"
-                  value="15"
-                />
-                <input
-                  type="number"
-                  id="thickness-percentage"
-                  min="10"
-                  max="30"
-                  value="15"
-                  style="width: 60px"
-                />
-                <span class="thickness-unit">px</span>
-              </div>
+                  " />
             </div>
           </div>
-          <div class="tool-info">
-            <i class="fas fa-info-circle"></i>
-            Hold Shift for straight lines, Ctrl+Shift for
-            horizontal/vertical/diagonal
+          <div class="thickness-section">
+            <label>Thickness:</label>
+            <div class="thickness-controls">
+              <input type="range" id="highlighter-thickness" min="10" max="30" value="15" />
+              <input type="number" id="thickness-percentage" min="10" max="30" value="15" style="width: 60px" />
+              <span class="thickness-unit">px</span>
+            </div>
           </div>
         </div>
-
-        <!-- Comment Options -->
-        <div class="tool-panel" id="comment-options">
-          <div class="tool-info">
-            <i class="fas fa-info-circle"></i>
-            Click anywhere on the page to add a comment
-          </div>
-        </div>
-
-        <!-- Stamp Options -->
-        <div class="tool-panel" id="stamp-options">
-          <label>Stamps:</label>
-          <div class="stamp-types">
-            <button class="stamp-btn" data-stamp="check">
-              <i class="fas fa-check"></i> Approved
-            </button>
-            <button class="stamp-btn" data-stamp="times">
-              <i class="fas fa-times"></i> Rejected
-            </button>
-            <button class="stamp-btn" data-stamp="star">
-              <i class="fas fa-star"></i> Important
-            </button>
-            <button class="stamp-btn" data-stamp="thumbs-up">
-              <i class="fas fa-thumbs-up"></i> Good
-            </button>
-            <button class="stamp-btn" data-stamp="heart">
-              <i class="fas fa-heart"></i> Favorite
-            </button>
-          </div>
-        </div>
-
-        <!-- Signature Options -->
-        <div class="tool-panel" id="signature-options">
-          <button class="btn btn-primary" id="create-signature">
-            <i class="fas fa-plus"></i> Create Signature
-          </button>
-          <div class="saved-signatures" id="saved-signatures">
-            <!-- Saved signatures will be loaded here -->
-          </div>
+        <div class="tool-info">
+          <i class="fas fa-info-circle"></i>
+          Hold Shift for straight lines, Ctrl+Shift for
+          horizontal/vertical/diagonal
         </div>
       </div>
 
-      <!-- Main Content Area -->
-      <div class="main-content">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-          <div class="sidebar-header">
-            <button class="sidebar-tab active" data-tab="thumbnails">
-              <i class="fas fa-th-large"></i> Thumbnails
-            </button>
-            <button class="sidebar-tab" data-tab="bookmarks">
-              <i class="fas fa-bookmark"></i> Bookmarks
-            </button>
-            <button class="sidebar-tab" data-tab="annotations">
-              <i class="fas fa-comment-dots"></i> Annotations
-            </button>
-          </div>
-          <div class="sidebar-content">
-            <div class="tab-content active" id="thumbnails-tab">
-              <div class="thumbnails-container" id="thumbnails-container">
-                <!-- Thumbnails will be generated here -->
-              </div>
-            </div>
-            <div class="tab-content" id="bookmarks-tab">
-              <div class="bookmarks-container" id="bookmarks-container">
-                <p class="empty-state">No bookmarks found</p>
-              </div>
-            </div>
-            <div class="tab-content" id="annotations-tab">
-              <div class="annotations-container" id="annotations-container">
-                <p class="empty-state">No annotations found</p>
-              </div>
-            </div>
-          </div>
+      <!-- Comment Options -->
+      <div class="tool-panel" id="comment-options">
+        <div class="tool-info">
+          <i class="fas fa-info-circle"></i>
+          Click anywhere on the page to add a comment
         </div>
+      </div>
 
-        <!-- PDF Viewer -->
-        <div class="viewer-container">
-          <div class="viewer-controls">
-            <button class="btn" id="toggle-sidebar" title="Toggle Sidebar">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
+      <!-- Stamp Options -->
+      <div class="tool-panel" id="stamp-options">
+        <label>Stamps:</label>
+        <div class="stamp-types">
+          <button class="stamp-btn" data-stamp="check">
+            <i class="fas fa-check"></i> Approved
+          </button>
+          <button class="stamp-btn" data-stamp="times">
+            <i class="fas fa-times"></i> Rejected
+          </button>
+          <button class="stamp-btn" data-stamp="star">
+            <i class="fas fa-star"></i> Important
+          </button>
+          <button class="stamp-btn" data-stamp="thumbs-up">
+            <i class="fas fa-thumbs-up"></i> Good
+          </button>
+          <button class="stamp-btn" data-stamp="heart">
+            <i class="fas fa-heart"></i> Favorite
+          </button>
+        </div>
+      </div>
 
-          <div class="pdf-viewer" id="pdf-viewer">
-            <div
-              class="loading-overlay"
-              id="loading-overlay"
-              style="display: none"
-            >
-              <div class="spinner"></div>
-              <p>Loading PDF...</p>
-            </div>
-
-            <div class="empty-state" id="empty-state">
-              <div class="empty-icon">
-                <i class="fas fa-file-pdf"></i>
-              </div>
-              <h3>No PDF loaded</h3>
-              <p>Open a PDF file to get started</p>
-              <button
-                class="btn btn-primary"
-                onclick="document.getElementById('open-pdf').click()"
-              >
-                <i class="fas fa-folder-open"></i> Open PDF
-              </button>
-            </div>
-
-            <div class="pdf-pages" id="pdf-pages">
-              <!-- PDF pages will be rendered here -->
-            </div>
-          </div>
-
-          <!-- Annotation overlay -->
-          <div class="annotation-overlay" id="annotation-overlay">
-            <!-- Annotations will be rendered here -->
-          </div>
+      <!-- Signature Options -->
+      <div class="tool-panel" id="signature-options">
+        <button class="btn btn-primary" id="create-signature">
+          <i class="fas fa-plus"></i> Create Signature
+        </button>
+        <div class="saved-signatures" id="saved-signatures">
+          <!-- Saved signatures will be loaded here -->
         </div>
       </div>
     </div>
 
-    <!-- Modals -->
-    <!-- Page Reorganization Modal -->
-    <div class="modal" id="reorganize-modal">
-      <div class="modal-content large-modal">
-        <div class="modal-header">
-          <h3>Reorganize Pages</h3>
-          <button class="modal-close" data-modal="reorganize-modal">
-            <i class="fas fa-times"></i>
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button class="sidebar-tab active" data-tab="thumbnails">
+            <i class="fas fa-th-large"></i> Thumbnails
+          </button>
+          <button class="sidebar-tab" data-tab="bookmarks">
+            <i class="fas fa-bookmark"></i> Bookmarks
+          </button>
+          <button class="sidebar-tab" data-tab="annotations">
+            <i class="fas fa-comment-dots"></i> Annotations
           </button>
         </div>
-        <div class="modal-body">
-          <div class="reorganize-controls">
-            <div class="control-group">
-              <button class="btn" id="select-all-pages">
-                <i class="fas fa-check-square"></i> Select All
-              </button>
-              <button class="btn" id="select-none-pages">
-                <i class="fas fa-square"></i> Select None
-              </button>
-              <button class="btn" id="reverse-pages">
-                <i class="fas fa-exchange-alt"></i> Reverse Order
-              </button>
-            </div>
-            <div class="control-group">
-              <button class="btn btn-primary" id="delete-selected">
-                <i class="fas fa-trash"></i> Delete Selected
-              </button>
-              <button class="btn btn-primary" id="duplicate-selected">
-                <i class="fas fa-copy"></i> Duplicate Selected
-              </button>
+        <div class="sidebar-content">
+          <div class="tab-content active" id="thumbnails-tab">
+            <div class="thumbnails-container" id="thumbnails-container">
+              <!-- Thumbnails will be generated here -->
             </div>
           </div>
-          <div class="page-organizer" id="page-organizer">
-            <!-- Draggable page thumbnails will be added here -->
+          <div class="tab-content" id="bookmarks-tab">
+            <div class="bookmarks-container" id="bookmarks-container">
+              <p class="empty-state">No bookmarks found</p>
+            </div>
+          </div>
+          <div class="tab-content" id="annotations-tab">
+            <div class="annotations-container" id="annotations-container">
+              <p class="empty-state">No annotations found</p>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn" data-modal="reorganize-modal">Cancel</button>
-          <button class="btn btn-primary" id="apply-reorganization">
-            Apply Changes
+      </div>
+
+      <!-- PDF Viewer -->
+      <div class="viewer-container">
+        <div class="viewer-controls">
+          <button class="btn" id="toggle-sidebar" title="Toggle Sidebar">
+            <i class="fas fa-bars"></i>
           </button>
+        </div>
+
+        <div class="pdf-viewer" id="pdf-viewer">
+          <div class="loading-overlay" id="loading-overlay" style="display: none">
+            <div class="spinner"></div>
+            <p>Loading PDF...</p>
+          </div>
+
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <h3>No PDF loaded</h3>
+            <p>Open a PDF file to get started</p>
+            <button class="btn btn-primary" onclick="document.getElementById('open-pdf').click()">
+              <i class="fas fa-folder-open"></i> Open PDF
+            </button>
+          </div>
+
+          <div class="pdf-pages" id="pdf-pages">
+            <!-- PDF pages will be rendered here -->
+          </div>
+        </div>
+
+        <!-- Annotation overlay -->
+        <div class="annotation-overlay" id="annotation-overlay">
+          <!-- Annotations will be rendered here -->
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Comment Input Modal -->
-    <div class="modal" id="comment-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Add Comment</h3>
-          <button class="modal-close" data-modal="comment-modal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label for="comment-text">Comment Text:</label>
-          <textarea
-            id="comment-text"
-            rows="4"
-            placeholder="Enter your comment here..."
-            style="width: 100%; margin-top: 8px"
-          ></textarea>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-modal="comment-modal">Cancel</button>
-          <button class="btn btn-primary" id="save-comment">
-            Save Comment
-          </button>
-        </div>
+  <!-- Modals -->
+  <!-- Page Reorganization Modal -->
+  <div class="modal" id="reorganize-modal">
+    <div class="modal-content large-modal">
+      <div class="modal-header">
+        <h3>Reorganize Pages</h3>
+        <button class="modal-close" data-modal="reorganize-modal">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-    </div>
-
-    <!-- Signature Creation Modal -->
-    <div class="modal" id="signature-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Create Signature</h3>
-          <button class="modal-close" data-modal="signature-modal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="signature-tabs">
-            <button class="signature-tab active" data-tab="draw">Draw</button>
-            <button class="signature-tab" data-tab="type">Type</button>
-            <button class="signature-tab" data-tab="upload">Upload</button>
+      <div class="modal-body">
+        <div class="reorganize-controls">
+          <div class="control-group">
+            <button class="btn" id="select-all-pages">
+              <i class="fas fa-check-square"></i> Select All
+            </button>
+            <button class="btn" id="select-none-pages">
+              <i class="fas fa-square"></i> Select None
+            </button>
+            <button class="btn" id="reverse-pages">
+              <i class="fas fa-exchange-alt"></i> Reverse Order
+            </button>
           </div>
-          <div class="signature-content">
-            <div class="signature-tab-content active" id="draw-signature">
-              <canvas id="signature-canvas" width="400" height="200"></canvas>
-              <div class="signature-controls">
-                <button class="btn" id="clear-signature">Clear</button>
-                <input type="range" id="pen-size" min="1" max="10" value="3" />
-                <span>Pen Size</span>
-              </div>
-            </div>
-            <div class="signature-tab-content" id="type-signature">
-              <input
-                type="text"
-                id="signature-text"
-                placeholder="Type your signature"
-              />
-              <div class="font-options">
-                <select id="signature-font">
-                  <option value="cursive">Cursive</option>
-                  <option value="serif">Serif</option>
-                  <option value="sans-serif">Sans Serif</option>
-                </select>
-              </div>
-            </div>
-            <div class="signature-tab-content" id="upload-signature">
-              <input type="file" id="signature-file" accept="image/*" />
-              <p>Upload an image of your signature</p>
-            </div>
+          <div class="control-group">
+            <button class="btn btn-primary" id="delete-selected">
+              <i class="fas fa-trash"></i> Delete Selected
+            </button>
+            <button class="btn btn-primary" id="duplicate-selected">
+              <i class="fas fa-copy"></i> Duplicate Selected
+            </button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn" data-modal="signature-modal">Cancel</button>
-          <button class="btn btn-primary" id="save-signature">
-            Save Signature
-          </button>
+        <div class="page-organizer" id="page-organizer">
+          <!-- Draggable page thumbnails will be added here -->
         </div>
       </div>
+      <div class="modal-footer">
+        <button class="btn" data-modal="reorganize-modal">Cancel</button>
+        <button class="btn btn-primary" id="apply-reorganization">
+          Apply Changes
+        </button>
+      </div>
     </div>
+  </div>
 
-    <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
-    <script>
-      // Initialize PDF.js worker
-      if (typeof pdfjsLib !== "undefined") {
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-          "../../node_modules/pdfjs-dist/build/pdf.worker.min.js";
-        console.log("✅ PDF.js library loaded successfully");
-      } else {
-        console.error("❌ PDF.js library not loaded");
-      }
-    </script>
-    <script src="../../node_modules/fabric/dist/fabric.min.js"></script>
-    <script src="../../node_modules/konva/konva.min.js"></script>
-    <script src="../../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
-    <script src="../../node_modules/pdf-lib/dist/pdf-lib.min.js"></script>
-    <script src="./annotations.js"></script>
-    <script src="./pdf-utils.js"></script>
-    <script src="./renderer.js"></script>
-  </body>
+  <!-- Comment Input Modal -->
+  <div class="modal" id="comment-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Comment</h3>
+        <button class="modal-close" data-modal="comment-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="comment-text">Comment Text:</label>
+        <textarea id="comment-text" rows="4" placeholder="Enter your comment here..."
+          style="width: 100%; margin-top: 8px"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-modal="comment-modal">Cancel</button>
+        <button class="btn btn-primary" id="save-comment">
+          Save Comment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signature Creation Modal -->
+  <div class="modal" id="signature-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Create Signature</h3>
+        <button class="modal-close" data-modal="signature-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="signature-tabs">
+          <button class="signature-tab active" data-tab="draw">Draw</button>
+          <button class="signature-tab" data-tab="type">Type</button>
+          <button class="signature-tab" data-tab="upload">Upload</button>
+        </div>
+        <div class="signature-content">
+          <div class="signature-tab-content active" id="draw-signature">
+            <canvas id="signature-canvas" width="400" height="200"></canvas>
+            <div class="signature-controls">
+              <button class="btn" id="clear-signature">Clear</button>
+              <input type="range" id="pen-size" min="1" max="10" value="3" />
+              <span>Pen Size</span>
+            </div>
+          </div>
+          <div class="signature-tab-content" id="type-signature">
+            <input type="text" id="signature-text" placeholder="Type your signature" />
+            <div class="font-options">
+              <select id="signature-font">
+                <option value="cursive">Cursive</option>
+                <option value="serif">Serif</option>
+                <option value="sans-serif">Sans Serif</option>
+              </select>
+            </div>
+          </div>
+          <div class="signature-tab-content" id="upload-signature">
+            <input type="file" id="signature-file" accept="image/*" />
+            <p>Upload an image of your signature</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-modal="signature-modal">Cancel</button>
+        <button class="btn btn-primary" id="save-signature">
+          Save Signature
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
+  <script>
+    // Initialize PDF.js worker
+    if (typeof pdfjsLib !== "undefined") {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "../../node_modules/pdfjs-dist/build/pdf.worker.min.js";
+      console.log("✅ PDF.js library loaded successfully");
+    } else {
+      console.error("❌ PDF.js library not loaded");
+    }
+  </script>
+  <script src="../../node_modules/fabric/dist/fabric.min.js"></script>
+  <script src="../../node_modules/konva/konva.min.js"></script>
+  <script src="../../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+  <script src="../../node_modules/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="./annotations.js"></script>
+  <script src="./pdf-utils.js"></script>
+  <script src="./renderer.js"></script>
+</body>
+
 </html>
