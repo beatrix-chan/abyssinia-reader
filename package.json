@@ -1,5 +1,6 @@
 {
   "name": "abyssinia-reader",
+  "productName": "Abyssinia Reader",
   "version": "1.0.0",
   "description": "An open source and feature rich PDF reader and editor built with ElectronJS",
   "main": "src/main/main.js",
