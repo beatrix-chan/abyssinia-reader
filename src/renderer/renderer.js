@@ -885,7 +885,29 @@ class PDFReader {
       this.currentPage = pageNum;
       this.updateUI();
       this.renderCurrentPage();
+    } else if (pageNum > this.totalPages) {
+      this.showPageExceedsDialog(pageNum);
+    } else if (pageNum < 1) {
+      this.showInvalidPageDialog(pageNum);
     }
+  }
+
+  showPageExceedsDialog(inputPage) {
+    const message = `Page ${inputPage} does not exist.\n\nThis document only has ${
+      this.totalPages
+    } page${
+      this.totalPages > 1 ? "s" : ""
+    }.\n\nPlease enter a page number between 1 and ${this.totalPages}.`;
+    alert(message);
+    // Reset the input to current page
+    document.getElementById("current-page").value = this.currentPage;
+  }
+
+  showInvalidPageDialog(inputPage) {
+    const message = `Invalid page number: ${inputPage}\n\nPlease enter a page number between 1 and ${this.totalPages}.`;
+    alert(message);
+    // Reset the input to current page
+    document.getElementById("current-page").value = this.currentPage;
   }
 
   // Zoom methods
